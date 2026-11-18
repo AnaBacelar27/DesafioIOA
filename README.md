@@ -8,21 +8,45 @@ Protótipo navegável em **HTML5, CSS3 e JavaScript puro** (sem frameworks, back
 
 ## Como executar
 
-Não há etapa de build. Duas opções:
+### Opção 1 — Docker (recomendado)
 
-1. Abrir `index.html` direto no navegador (duplo clique); ou
-2. Servir a pasta localmente (recomendado):
+Requer apenas o [Docker Desktop](https://www.docker.com/products/docker-desktop/) (ou Docker Engine + Compose). Nada mais precisa ser instalado na máquina.
 
 ```bash
-cd ioa-itc-prototipo && python3 -m http.server 8080
+git clone https://github.com/AnaBacelar27/DesafioIOA.git
+cd DesafioIOA
+docker compose up -d --build
 ```
 
-Depois acesse http://localhost:8080. A internet só é necessária para a fonte Quicksand (Google Fonts), o mapa do Google e os links externos.
+Acesse http://localhost:8080. Comandos úteis:
+
+| Ação | Comando |
+|---|---|
+| Ver se está rodando | `docker compose ps` |
+| Ver logs | `docker compose logs -f site` |
+| Parar | `docker compose down` |
+| Atualizar após `git pull` | `docker compose up -d --build` |
+| Modo desenvolvimento (edita e recarrega, sem rebuild) | `docker compose --profile dev up dev` → http://localhost:8081 |
+
+A imagem usa `nginx:1.27-alpine` (versão fixa) e copia apenas os arquivos do site, então todos rodam exatamente o mesmo ambiente. Se a porta 8080 estiver ocupada, troque `"8080:80"` em `docker-compose.yml`.
+
+### Opção 2 — Sem Docker
+
+Não há etapa de build. Abra `index.html` direto no navegador ou sirva a pasta:
+
+```bash
+python3 -m http.server 8080
+```
+
+Em ambos os casos a internet só é necessária para a fonte Quicksand (Google Fonts), o mapa do Google e os links externos.
 
 ## Estrutura
 
 ```text
-ioa-itc-prototipo/
+DesafioIOA/
+├── Dockerfile                 Imagem Nginx com o site
+├── docker-compose.yml         Serviços site (8080) e dev (8081)
+├── docker/nginx.conf          Configuração do servidor
 ├── index.html                 Início (landing page)
 ├── pages/
 │   ├── cursos.html            Catálogo: busca, filtros, ordenação
