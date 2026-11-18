@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cursos · IOA | ITC São Luís</title>
+  <meta name="description" content="Explore os cursos do IOA | ITC São Luís: busca, filtros, disponibilidade de vagas e inscrição.">
+  <meta name="theme-color" content="#2b2b2a">
+  <link rel="icon" href="../assets/icons/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body data-page="cursos" data-section="cursos" data-root="../">
+  <div data-component="header"></div>
+
+  <main id="conteudo">
+    <section class="page-hero catalog-hero">
+      <div class="container">
+        <div class="page-hero__inner">
+          <nav aria-label="Trilha de navegação">
+            <ol class="breadcrumb"><li><a href="../index.html">Início</a></li><li><span aria-current="page">Cursos</span></li></ol>
+          </nav>
+          <span class="eyebrow">IOA Cursos</span>
+          <h1 class="display">Explore nossos cursos</h1>
+          <p class="lead">Formações práticas e atualizadas, conduzidas em uma infraestrutura preparada para a aprendizagem. Compare datas, modalidades, investimento e disponibilidade de vagas.</p>
+          <form class="search-form" id="form-busca" role="search">
+            <div class="search">
+              <label class="sr-only" for="f-busca">Buscar cursos</label>
+              <span data-icon="search" style="display:contents"></span>
+              <input class="input" id="f-busca" type="search" placeholder="Busque por curso, tema ou área" autocomplete="off">
+            </div>
+            <button class="btn btn--lg" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <div class="container">
+        <div style="display:flex;gap:.75rem;align-items:center">
+          <div class="toolbar__chips" id="f-categorias" role="group" aria-label="Filtrar por categoria" style="flex:1"></div>
+          <button type="button" class="chip filters-toggle" id="f-toggle" aria-expanded="false" aria-controls="f-painel"><span data-icon="sliders" style="display:contents"></span>Filtros <span class="f-count"></span></button>
+        </div>
+        <div class="filters" id="f-painel">
+          <div class="field"><label for="f-modalidade">Modalidade</label><select class="select" id="f-modalidade"></select></div>
+          <div class="field"><label for="f-periodo">Período</label><select class="select" id="f-periodo"></select></div>
+          <div class="field"><label for="f-preco">Faixa de preço</label><select class="select" id="f-preco"></select></div>
+          <div class="field"><label for="f-disp">Disponibilidade</label><select class="select" id="f-disp"></select></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section section--tight" id="catalogo">
+      <div class="container">
+        <div class="results-bar">
+          <div class="results-bar__left">
+            <strong id="resultado-contagem" aria-live="polite">Carregando cursos…</strong>
+            <button type="button" class="btn-clear" id="f-limpar" hidden><span data-icon="rotate-ccw" style="display:contents"></span>Limpar filtros</button>
+          </div>
+          <div class="results-bar__sort">
+            <label for="f-ordem" class="muted">Ordenar por</label>
+            <select class="select" id="f-ordem"></select>
+          </div>
+        </div>
+        <div class="grid-cards" id="grid-cursos"></div>
+
+        <div class="legend" aria-label="Legenda do indicador de lotação">
+          <strong>Indicador de lotação</strong>
+          <span><i style="background:var(--st-open)"></i>Até 30% — inscrições em andamento</span>
+          <span><i style="background:var(--st-filling)"></i>31% a 70% — vagas sendo preenchidas</span>
+          <span><i style="background:var(--st-last)"></i>71% a 90% — últimas vagas</span>
+          <span><i style="background:var(--st-almost)"></i>91% a 99% — quase esgotado</span>
+          <span><i style="background:var(--st-sold)"></i>100% — esgotado</span>
+        </div>
+        <p class="small muted" style="margin-top:1rem">* Cursos, docentes, datas, valores e vagas são demonstrativos e não representam disponibilidade real. Categorias sujeitas à confirmação institucional.</p>
+      </div>
+    </section>
+  </main>
+
+  <div data-component="footer"></div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/forms.js"></script>
+  <script src="../js/cursos.js"></script>
+</body>
+</html>

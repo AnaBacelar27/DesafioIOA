@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seja um paciente · IOA | ITC São Luís</title>
+  <meta name="description" content="Seja um paciente do IOA | ITC São Luís: tratamentos odontológicos realizados nas aulas práticas, sob supervisão de professores. Agende sua triagem.">
+  <meta name="theme-color" content="#2b2b2a">
+  <link rel="icon" href="../assets/icons/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body data-page="servicos" data-section="servicos" data-root="../">
+  <div data-component="header"></div>
+
+  <main id="conteudo">
+    <section class="page-hero page-hero--photo">
+      <div class="page-hero__bg"><img src="../assets/images/clinica-ioa-sao-luis.jpg" alt=""></div>
+      <div class="container">
+        <div class="page-hero__inner">
+          <nav aria-label="Trilha de navegação">
+            <ol class="breadcrumb"><li><a href="../index.html">Início</a></li><li><span aria-current="page">Serviços</span></li></ol>
+          </nav>
+          <span class="eyebrow">Seja um paciente</span>
+          <h1 class="display">Tratamento odontológico com <span class="accent">supervisão de especialistas</span></h1>
+          <p class="lead">Nas aulas práticas dos cursos, cirurgiões-dentistas em formação atendem pacientes sob a supervisão de professores. Agende uma triagem gratuita e descubra qual tratamento é indicado para você.</p>
+          <div class="hero__actions">
+            <a class="btn btn--lg" data-schedule="avaliacao-odontologica" href="#catalogo">Agendar triagem</a>
+            <a class="btn btn--lg btn--ghost-light" href="#catalogo">Ver tratamentos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="catalogo" aria-labelledby="cat-title">
+      <div class="container">
+        <div class="section-head section-head--split">
+          <div class="stack">
+            <span class="eyebrow">Tratamentos</span>
+            <h2 class="h2" id="cat-title">Atendimentos disponíveis</h2>
+          </div>
+          <div class="toolbar__chips" id="s-categorias" role="group" aria-label="Filtrar tratamentos por especialidade"></div>
+        </div>
+        <div class="grid-cards" id="grid-servicos"></div>
+        <p class="small muted" style="margin-top:1.5rem">* Tratamentos, condições e valores demonstrativos. A oferta real depende das turmas em andamento e deve ser confirmada pela unidade.</p>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="como-funciona" aria-labelledby="fluxo-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Como funciona</span>
+          <h2 class="h2" id="fluxo-title">Como se tornar paciente</h2>
+          <p class="lead">A triagem avalia sua saúde bucal e verifica se o seu caso é compatível com as turmas práticas em andamento.</p>
+        </div>
+        <ol class="steps-band">
+          <li><h3>Escolha o tratamento</h3><p>Veja as especialidades atendidas e os valores de referência.</p></li>
+          <li><h3>Clique em “Agendar triagem”</h3><p>Você será direcionado ao Google Agenda da unidade.</p></li>
+          <li><h3>Selecione um horário</h3><p>Escolha entre os horários disponíveis na agenda.</p></li>
+          <li><h3>Faça a triagem</h3><p>Compareça à clínica; se o caso for compatível, você é chamado para a turma prática.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="precos-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Valores de referência</span>
+          <h2 class="h2" id="precos-title">Tabela de preços</h2>
+          <p class="lead">Os atendimentos podem ser gratuitos, por sessão, a partir de um valor inicial ou sob orçamento, conforme o tratamento.</p>
+          <ul class="price-types"><li>Gratuito</li><li>A partir de</li><li>Por sessão</li><li>Sob orçamento</li></ul>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="sr-only">Tabela de preços demonstrativos dos tratamentos</caption>
+            <thead><tr><th scope="col">Tratamento</th><th scope="col">Especialidade</th><th scope="col">Tipo de preço</th><th scope="col">Valor*</th><th scope="col"><span class="sr-only">Ação</span></th></tr></thead>
+            <tbody id="tabela-precos"></tbody>
+          </table>
+        </div>
+        <p class="small muted" style="margin-top:1rem">* Valores fictícios para demonstração — não representam preços oficiais.</p>
+      </div>
+    </section>
+  </main>
+
+  <div data-component="footer"></div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/forms.js"></script>
+  <script src="../js/servicos.js"></script>
+</body>
+</html>

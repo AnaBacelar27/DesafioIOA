@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contato · IOA | ITC São Luís</title>
+  <meta name="description" content="Contato do IOA | ITC São Luís: endereço, telefone, WhatsApp, horários de atendimento e localização.">
+  <meta name="theme-color" content="#2b2b2a">
+  <link rel="icon" href="../assets/icons/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body data-page="contato" data-section="contato" data-root="../">
+  <div data-component="header"></div>
+
+  <main id="conteudo">
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero__inner">
+          <nav aria-label="Trilha de navegação">
+            <ol class="breadcrumb"><li><a href="../index.html">Início</a></li><li><span aria-current="page">Contato</span></li></ol>
+          </nav>
+          <span class="eyebrow">Contato</span>
+          <h1 class="display">Vamos conversar</h1>
+          <p class="lead">Fale com a equipe do IOA | ITC São Luís sobre cursos, serviços, parcerias e reservas de espaços.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="info-title">
+      <div class="container contact-layout">
+        <div class="contact-info">
+          <span class="eyebrow">Informações institucionais</span>
+          <h2 class="h3" id="info-title">IOA | ITC São Luís</h2>
+          <div class="contact-cards">
+            <a class="contact-card" href="https://www.google.com/maps/search/?api=1&amp;query=IOA+ITC+S%C3%A3o+Lu%C3%ADs+R.+Carutapera+5" target="_blank" rel="noopener">
+              <span data-icon="map-pin" data-icon-class="ci-lead" style="display:contents"></span>
+              <div><strong>Endereço</strong><span>R. Carutapera, 5 – Jardim Renascença<br>São Luís – MA · CEP 65075-670</span></div>
+              <span data-icon="external-link" data-icon-class="ci-trail" style="display:contents"></span>
+            </a>
+            <a class="contact-card" href="tel:+5598991441868">
+              <span data-icon="phone" data-icon-class="ci-lead" style="display:contents"></span>
+              <div><strong>Telefone</strong><span>(98) 9 9144-1868</span></div>
+              <span data-icon="arrow-right" data-icon-class="ci-trail" style="display:contents"></span>
+            </a>
+            <a class="contact-card" href="https://api.whatsapp.com/send?phone=559891441868&amp;text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20cursos%20que%20vi%20no%20site!" target="_blank" rel="noopener">
+              <span data-icon="message-circle" data-icon-class="ci-lead" style="display:contents"></span>
+              <div><strong>WhatsApp da unidade</strong><span>Iniciar conversa</span></div>
+              <span data-icon="external-link" data-icon-class="ci-trail" style="display:contents"></span>
+            </a>
+          </div>
+          <div>
+            <p class="footer__title" style="color:var(--gold)">Horário de atendimento</p>
+            <div class="hours">
+              <div><span>Segunda a sexta</span><strong>08:00 às 18:00</strong></div>
+              <div><span>Sábados</span><strong>08:00 às 13:00</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h2 class="h3">Envie uma mensagem</h2>
+          <p class="muted">Campos com <span class="accent">*</span> são obrigatórios.</p>
+          <form id="form-contato" novalidate>
+            <div class="form-alert" role="alert"></div>
+            <div class="form-grid">
+              <div class="field span-2"><label for="c-nome">Nome completo <span class="req">*</span></label><input class="input" id="c-nome" name="nome" required data-validate="name" autocomplete="name"></div>
+              <div class="field"><label for="c-email">E-mail <span class="req">*</span></label><input class="input" id="c-email" name="email" type="email" required autocomplete="email"></div>
+              <div class="field"><label for="c-tel">Telefone</label><input class="input" id="c-tel" name="telefone" type="tel" data-validate="phone" autocomplete="tel" placeholder="(98) 90000-0000"></div>
+              <div class="field span-2"><label for="c-assunto">Assunto <span class="req">*</span></label>
+                <select class="select" id="c-assunto" name="assunto" required>
+                  <option value="">Selecione</option>
+                  <option>Cursos</option>
+                  <option>Serviços</option>
+                  <option>Reserva de espaços</option>
+                  <option>Parcerias</option>
+                  <option>Outros assuntos</option>
+                </select>
+              </div>
+              <div class="field span-2"><label for="c-msg">Mensagem <span class="req">*</span></label><textarea class="textarea" id="c-msg" name="mensagem" required minlength="10"></textarea></div>
+              <label class="checkbox span-2"><input type="checkbox" name="consentimento" required><span>Autorizo o uso dos meus dados para retorno deste contato.</span></label>
+            </div>
+            <button type="submit" class="btn btn--lg" style="margin-top:1.5rem">Enviar mensagem</button>
+            <p class="small muted" style="margin-top:1rem">Protótipo: o envio é simulado e nenhum dado é transmitido.</p>
+          </form>
+          <div id="contato-resultado" hidden tabindex="-1"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight section--ivory" aria-labelledby="mapa-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Localização</span>
+          <h2 class="h3" id="mapa-title">Como chegar</h2>
+        </div>
+        <div class="map">
+          <iframe title="Mapa de localização do IOA | ITC São Luís" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.0192250774808!2d-44.28592722527221!3d-2.5005504974780393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7f68d3034f8c251%3A0x4e011bddd727af08!2zSU9BIElUQyBTw6NvIEx1w61z!5e0!3m2!1spt-BR!2sbr!4v1725907490504!5m2!1spt-BR!2sbr" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" aria-labelledby="canais-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Canais de atendimento</span>
+          <h2 class="h3" id="canais-title">Redes oficiais da Rede IOA</h2>
+        </div>
+        <div class="channels">
+          <a class="channel" href="https://www.instagram.com/redeioa" target="_blank" rel="noopener"><span data-icon="instagram" style="display:contents"></span><strong>Instagram</strong><span>@redeioa</span></a>
+          <a class="channel" href="https://www.linkedin.com/company/redeioaoficial/" target="_blank" rel="noopener"><span data-icon="linkedin" style="display:contents"></span><strong>LinkedIn</strong><span>Rede IOA Oficial</span></a>
+          <a class="channel" href="https://www.youtube.com/@redeioa" target="_blank" rel="noopener"><span data-icon="youtube" style="display:contents"></span><strong>YouTube</strong><span>@redeioa</span></a>
+          <a class="channel" href="https://www.tiktok.com/@redeioa" target="_blank" rel="noopener"><span data-icon="tiktok" style="display:contents"></span><strong>TikTok</strong><span>@redeioa</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-component="footer"></div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/forms.js"></script>
+</body>
+</html>
