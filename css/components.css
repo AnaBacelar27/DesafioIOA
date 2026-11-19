@@ -648,169 +648,6 @@
   color: var(--graphite-300);
 }
 
-/* ---------- Card de serviço ---------- */
-.service-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: var(--space-6);
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-
-.service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: transparent;
-}
-
-.service-card__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--space-4);
-  margin-bottom: var(--space-5);
-}
-
-.service-card__icon {
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius);
-  background: var(--graphite);
-  color: var(--gold-light);
-}
-
-.service-card__icon svg {
-  width: 24px;
-  height: 24px;
-}
-
-.service-card h3 {
-  font-size: var(--fs-lg);
-  font-weight: 600;
-  margin-bottom: var(--space-3);
-}
-
-.service-card__desc {
-  font-size: var(--fs-sm);
-  color: var(--graphite-500);
-}
-
-.check-list {
-  display: grid;
-  gap: 0.55rem;
-  list-style: none;
-  font-size: var(--fs-sm);
-}
-
-.check-list li {
-  display: grid;
-  grid-template-columns: 18px 1fr;
-  gap: 0.6rem;
-  align-items: start;
-}
-
-.check-list svg {
-  width: 16px;
-  height: 16px;
-  margin-top: 0.22rem;
-  color: var(--gold);
-}
-
-.service-card__list {
-  margin-top: var(--space-5);
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--line);
-}
-
-.service-card__foot {
-  display: grid;
-  gap: var(--space-4);
-  margin-top: auto;
-  padding-top: var(--space-6);
-}
-
-.service-card__price-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--space-3);
-}
-
-.service-card__actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-}
-
-/* ---------- Card de sala ---------- */
-.room-card {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-
-.room-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-
-.room-card:hover .cover img {
-  transform: scale(1.05);
-}
-
-.room-card .cover {
-  aspect-ratio: 4 / 3;
-}
-
-.room-card__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  padding: var(--space-5) var(--space-5) var(--space-6);
-}
-
-.room-card h3 {
-  font-size: var(--fs-lg);
-  font-weight: 600;
-}
-
-.room-card__specs {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
-  padding-block: var(--space-4);
-  border-block: 1px solid var(--line);
-  font-size: var(--fs-sm);
-}
-
-.spec {
-  display: grid;
-  gap: 0.1rem;
-}
-
-.spec__k {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--graphite-400);
-}
-
-.spec__v {
-  font-weight: 600;
-}
-
 .chip-list {
   display: flex;
   flex-wrap: wrap;
@@ -825,14 +662,6 @@
   font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--graphite-500);
-}
-
-.room-card__foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--space-4);
-  margin-top: auto;
 }
 
 /* ---------- Filtros / chips ---------- */
@@ -1800,4 +1629,62 @@
   stroke-width: 1.6;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* ---------- Foto recortada do docente (canto da imagem do curso) ---------- */
+.prof-cutout {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+/* Fotos reais: encostadas na borda direita da imagem (o recorte lateral fica na moldura) */
+.prof-cutout:has(img.prof-cutout__figure) {
+  right: 0;
+  clip-path: inset(-100% 0 -100% -100%);
+}
+
+.prof-cutout__arc {
+  position: absolute;
+  left: 4%;
+  bottom: -22%;
+  width: 128%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(160deg, var(--gold-light), var(--gold));
+  opacity: 0.92;
+}
+
+.prof-cutout .prof-cutout__figure {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  filter: drop-shadow(0 12px 18px rgba(30, 30, 29, 0.28));
+}
+
+.prof-cutout--card {
+  width: 44%;
+  height: 90%;
+  right: 2%;
+}
+
+.prof-cutout--hero {
+  width: 46%;
+  height: calc(100% + var(--space-8) - var(--space-4));
+  right: calc(var(--gutter) * -0.5);
+  bottom: calc(var(--space-8) * -1);
+  z-index: 2;
+}
+
+/* A foto do docente não acompanha o zoom da capa no hover */
+.course-card:hover .cover .prof-cutout__figure {
+  transform: none;
 }

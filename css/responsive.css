@@ -151,10 +151,7 @@
   }
 
   .intro,
-  .about-split,
-  .space-intro,
-  .contact-band,
-  .contact-layout {
+  .contact-band {
     grid-template-columns: 1fr;
     gap: var(--space-7);
   }
@@ -217,19 +214,6 @@
 
   .filters {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .steps-band {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: var(--space-7);
-  }
-
-  .facts {
-    grid-template-columns: 1fr;
-  }
-
-  .channels {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .gallery {
@@ -466,37 +450,6 @@
     margin: calc(var(--space-5) * -1) calc(var(--space-5) * -1) var(--space-5);
   }
 
-  .room-gallery {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 240px 120px;
-  }
-
-  .room-gallery__main {
-    grid-column: 1 / -1;
-    grid-row: auto;
-  }
-
-  .room-gallery__all {
-    bottom: auto;
-    top: calc(240px - 3.5rem);
-  }
-
-  .steps-band {
-    grid-template-columns: 1fr;
-  }
-
-  .channels {
-    grid-template-columns: 1fr;
-  }
-
-  .form-card {
-    padding: var(--space-5);
-  }
-
-  .map iframe {
-    height: 320px;
-  }
-
   /* Formulários e modal */
   .form-grid,
   .form-grid--3 {
@@ -531,10 +484,6 @@
   .summary__row {
     grid-template-columns: 1fr;
     gap: 0.1rem;
-  }
-
-  .service-card {
-    padding: var(--space-5);
   }
 
   .footer__top {
@@ -577,9 +526,6 @@
 }
 
 @media (max-width: 400px) {
-  .service-card__actions {
-    grid-template-columns: 1fr;
-  }
 
   .course-card__foot {
     flex-direction: column;

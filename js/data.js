@@ -28,15 +28,6 @@ window.IOA_DATA = (function () {
         { dias: "Segunda a sexta", horas: "08:00 às 18:00" },
         { dias: "Sábados", horas: "08:00 às 13:00" }
       ],
-      // Horário de funcionamento usado na validação de reservas (0 = domingo)
-      funcionamento: {
-        1: ["08:00", "18:00"],
-        2: ["08:00", "18:00"],
-        3: ["08:00", "18:00"],
-        4: ["08:00", "18:00"],
-        5: ["08:00", "18:00"],
-        6: ["08:00", "13:00"]
-      },
       mapaEmbed:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.0192250774808!2d-44.28592722527221!3d-2.5005504974780393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7f68d3034f8c251%3A0x4e011bddd727af08!2zSU9BIElUQyBTw6NvIEx1w61z!5e0!3m2!1spt-BR!2sbr!4v1725907490504!5m2!1spt-BR!2sbr",
       mapaLink: "https://www.google.com/maps/search/?api=1&query=IOA+ITC+S%C3%A3o+Lu%C3%ADs+R.+Carutapera+5",
@@ -61,16 +52,6 @@ window.IOA_DATA = (function () {
       ]
     },
 
-    /* Agendamento de triagem (Google Agenda)
-       - Se o serviço tiver `agendaUrl`, ela é usada (ex.: página de agendamento
-         do Google Agenda: https://calendar.app.google/XXXX).
-       - Senão, usa `agenda.urlPadrao`.
-       - Se ambas estiverem vazias, o protótipo gera um link de evento-modelo do
-         Google Agenda (demonstração). */
-    agenda: {
-      urlPadrao: "",
-      duracaoTriagemMin: 30
-    },
 
     /* Pagamento — placeholder para futura integração com gateway */
     pagamento: {
@@ -94,99 +75,81 @@ window.IOA_DATA = (function () {
   };
 
   /* ------------------------------------------------------------------
-     Docentes — PERFIS FICTÍCIOS (não representam integrantes reais)
+     Docentes — nomes e fotos fornecidos pela equipe; currículos a confirmar.
+     O vínculo docente ↔ curso abaixo é DEMONSTRATIVO.
      ------------------------------------------------------------------ */
+  // `foto`: caminho de um PNG recortado (fundo transparente), ex.:
+  // "assets/images/professores/rafael.png". Sem foto, exibe uma silhueta.
   const professores = [
     {
-      "id": "docente-anatomia",
-      "demo": true,
-      "nome": "Rafael Montenegro Sá",
-      "iniciais": "RS",
-      "titulo": "Docente demonstrativo — Anatomia",
-      "formacao": "Mestrado em Ciências Morfológicas (exemplo)",
-      "especializacoes": [
-        "Anatomia de cabeça e pescoço",
-        "Cirurgia bucomaxilofacial"
-      ],
-      "experiencia": "Trajetória fictícia em ensino de anatomia aplicada e treinamentos práticos em laboratório.",
-      "bio": "Perfil criado apenas para demonstrar a seção de docentes. Substituir por currículo oficial, fotografia autorizada e links reais.",
-      "linkedin": ""
+      "id": "silas-alves",
+      "demo": false,
+      "curriculoPendente": true,
+      "nome": "Prof. Dr. Silas Alves",
+      "iniciais": "SA",
+      "titulo": "Docente IOA | ITC São Luís",
+      "formacao": "A confirmar com a unidade",
+      "especializacoes": [],
+      "experiencia": "A confirmar com a unidade",
+      "bio": "Currículo, formação e especializações a serem fornecidos pela unidade.",
+      "linkedin": "",
+      "foto": "assets/images/professores/silas-alves.png"
     },
     {
-      "id": "docente-hof",
-      "demo": true,
-      "nome": "Camila Ribeiro Duarte",
-      "iniciais": "CD",
-      "titulo": "Docente demonstrativa — Harmonização Orofacial",
-      "formacao": "Especialização em Harmonização Orofacial (exemplo)",
-      "especializacoes": [
-        "Toxina botulínica",
-        "Preenchedores faciais"
-      ],
-      "experiencia": "Atuação clínica fictícia e condução de turmas práticas supervisionadas.",
-      "bio": "Perfil criado apenas para demonstrar a seção de docentes. Substituir por currículo oficial, fotografia autorizada e links reais.",
-      "linkedin": ""
+      "id": "lorena-ladeira",
+      "demo": false,
+      "curriculoPendente": true,
+      "nome": "Profa. Dra. Lorena Ladeira",
+      "iniciais": "LL",
+      "titulo": "Docente IOA | ITC São Luís",
+      "formacao": "A confirmar com a unidade",
+      "especializacoes": [],
+      "experiencia": "A confirmar com a unidade",
+      "bio": "Currículo, formação e especializações a serem fornecidos pela unidade.",
+      "linkedin": "",
+      "foto": "assets/images/professores/lorena-ladeira.png"
     },
     {
-      "id": "docente-implanto",
-      "demo": true,
-      "nome": "Lucas Pereira Castelo",
-      "iniciais": "LC",
-      "titulo": "Docente demonstrativo — Implantodontia",
-      "formacao": "Mestrado em Implantodontia (exemplo)",
-      "especializacoes": [
-        "Cirurgia guiada",
-        "Reabilitação oral"
-      ],
-      "experiencia": "Trajetória fictícia em cirurgia de implantes e reabilitação.",
-      "bio": "Perfil criado apenas para demonstrar a seção de docentes. Substituir por currículo oficial, fotografia autorizada e links reais.",
-      "linkedin": ""
+      "id": "claudia-rizzi",
+      "demo": false,
+      "curriculoPendente": true,
+      "nome": "Profa. Dra. Cláudia Rizzi",
+      "iniciais": "CR",
+      "titulo": "Docente IOA | ITC São Luís",
+      "formacao": "A confirmar com a unidade",
+      "especializacoes": [],
+      "experiencia": "A confirmar com a unidade",
+      "bio": "Currículo, formação e especializações a serem fornecidos pela unidade.",
+      "linkedin": "",
+      "foto": "assets/images/professores/claudia-rizzi.png"
     },
     {
-      "id": "docente-endo",
-      "demo": true,
-      "nome": "Marina Albuquerque Lima",
-      "iniciais": "ML",
-      "titulo": "Docente demonstrativa — Endodontia",
-      "formacao": "Doutorado em Endodontia (exemplo)",
-      "especializacoes": [
-        "Endodontia mecanizada",
-        "Retratamento endodôntico"
-      ],
-      "experiencia": "Experiência fictícia em clínica e docência em Endodontia.",
-      "bio": "Perfil criado apenas para demonstrar a seção de docentes. Substituir por currículo oficial, fotografia autorizada e links reais.",
-      "linkedin": ""
+      "id": "anice-mohana",
+      "demo": false,
+      "curriculoPendente": true,
+      "nome": "Profa. Dra. Anice Mohana",
+      "iniciais": "AM",
+      "titulo": "Docente IOA | ITC São Luís",
+      "formacao": "A confirmar com a unidade",
+      "especializacoes": [],
+      "experiencia": "A confirmar com a unidade",
+      "bio": "Currículo, formação e especializações a serem fornecidos pela unidade.",
+      "linkedin": "",
+      "foto": "assets/images/professores/anice-mohana.png"
     },
     {
-      "id": "docente-perio",
-      "demo": true,
-      "nome": "Eduardo Furtado Neves",
-      "iniciais": "EN",
-      "titulo": "Docente demonstrativo — Periodontia e Dentística",
-      "formacao": "Mestrado em Periodontia (exemplo)",
-      "especializacoes": [
-        "Cirurgia plástica periodontal",
-        "Dentística estética"
-      ],
-      "experiencia": "Atuação fictícia em periodontia clínica e estética do sorriso.",
-      "bio": "Perfil criado apenas para demonstrar a seção de docentes. Substituir por currículo oficial, fotografia autorizada e links reais.",
-      "linkedin": ""
-    },
-    {
-      "id": "docente-orto",
-      "demo": true,
-      "nome": "Juliana Costa Viana",
-      "iniciais": "JV",
-      "titulo": "Docente demonstrativa — Ortodontia e Odontopediatria",
-      "formacao": "Especialização em Ortodontia (exemplo)",
-      "especializacoes": [
-        "Ortodontia corretiva",
-        "Ortopedia funcional",
-        "Odontopediatria"
-      ],
-      "experiencia": "Trajetória fictícia em atendimento ortodôntico de crianças e adultos.",
-      "bio": "Perfil criado apenas para demonstrar a seção de docentes. Substituir por currículo oficial, fotografia autorizada e links reais.",
-      "linkedin": ""
+      "id": "clarissa-vieira",
+      "demo": false,
+      "curriculoPendente": true,
+      "nome": "Profa. Dra. Clarissa Vieira",
+      "iniciais": "CV",
+      "titulo": "Docente IOA | ITC São Luís",
+      "formacao": "A confirmar com a unidade",
+      "especializacoes": [],
+      "experiencia": "A confirmar com a unidade",
+      "bio": "Currículo, formação e especializações a serem fornecidos pela unidade.",
+      "linkedin": "",
+      "foto": "assets/images/professores/clarissa-vieira.png"
     }
   ];
 
@@ -285,7 +248,7 @@ window.IOA_DATA = (function () {
           ]
         }
       ],
-      "professorId": "docente-anatomia",
+      "professorId": "silas-alves",
       "materiais": [
         {
           "nome": "Peças anatômicas",
@@ -391,7 +354,7 @@ window.IOA_DATA = (function () {
           ]
         }
       ],
-      "professorId": "docente-hof",
+      "professorId": "lorena-ladeira",
       "materiais": [
         {
           "nome": "Consultórios equipados",
@@ -495,7 +458,7 @@ window.IOA_DATA = (function () {
           ]
         }
       ],
-      "professorId": "docente-endo",
+      "professorId": "claudia-rizzi",
       "materiais": [
         {
           "nome": "Motor endodôntico",
@@ -587,7 +550,7 @@ window.IOA_DATA = (function () {
           ]
         }
       ],
-      "professorId": "docente-implanto",
+      "professorId": "silas-alves",
       "materiais": [
         {
           "nome": "Kit de cirurgia guiada",
@@ -676,7 +639,7 @@ window.IOA_DATA = (function () {
           ]
         }
       ],
-      "professorId": "docente-perio",
+      "professorId": "anice-mohana",
       "materiais": [
         {
           "nome": "Instrumental periodontal",
@@ -764,7 +727,7 @@ window.IOA_DATA = (function () {
           ]
         }
       ],
-      "professorId": "docente-perio",
+      "professorId": "clarissa-vieira",
       "materiais": [
         {
           "nome": "Resinas compostas",
@@ -852,7 +815,7 @@ window.IOA_DATA = (function () {
           ]
         }
       ],
-      "professorId": "docente-orto",
+      "professorId": "lorena-ladeira",
       "materiais": [
         {
           "nome": "Braquetes e fios",
@@ -939,7 +902,7 @@ window.IOA_DATA = (function () {
           ]
         }
       ],
-      "professorId": "docente-orto",
+      "professorId": "clarissa-vieira",
       "materiais": [
         {
           "nome": "Consultórios equipados",
@@ -1013,7 +976,7 @@ window.IOA_DATA = (function () {
           ]
         }
       ],
-      "professorId": "docente-perio",
+      "professorId": "anice-mohana",
       "materiais": [
         {
           "nome": "Câmera fotográfica",
@@ -1033,290 +996,5 @@ window.IOA_DATA = (function () {
     }
   ];
 
-  /* ------------------------------------------------------------------
-     Serviços — ATENDIMENTO ODONTOLÓGICO PARA PACIENTES (DEMONSTRATIVO)
-     Foco: captar pacientes-modelo para as atividades clínicas
-     supervisionadas dos cursos. Valores e condições a confirmar.
-     tipoPreco: "gratuito" | "fixo" | "inicial" | "sessao" | "orcamento"
-     ------------------------------------------------------------------ */
-  const servicos = [
-    {
-      id: "avaliacao-odontologica",
-      demo: true,
-      nome: "Avaliação Odontológica Inicial",
-      categoria: "Avaliação",
-      icone: "smile",
-      resumo: "Primeiro passo para ser paciente: avaliação da saúde bucal e indicação do tratamento e do curso adequados.",
-      descricao: "Na triagem, a equipe avalia sua saúde bucal, registra suas necessidades e verifica se o seu caso se encaixa nas turmas práticas em andamento. Os atendimentos são realizados por cirurgiões-dentistas em formação, sob supervisão de professores.",
-      beneficios: ["Diagnóstico da sua saúde bucal", "Indicação do tratamento adequado", "Encaminhamento para a turma prática compatível"],
-      incluso: ["Exame clínico", "Orientações de saúde bucal", "Indicação de plano de tratamento"],
-      prazo: "Cerca de 30 minutos",
-      publico: "Adultos e crianças (acompanhadas)",
-      especialidade: "Clínica geral",
-      tipoPreco: "gratuito",
-      preco: 0,
-      agendaUrl: "",
-      etapas: ["Agende a triagem", "Avaliação clínica", "Indicação de tratamento", "Convite para a turma prática"]
-    },
-    {
-      id: "limpeza-periodontia",
-      demo: true,
-      nome: "Limpeza e Tratamento de Gengiva",
-      categoria: "Periodontia",
-      icone: "sparkles",
-      resumo: "Profilaxia, raspagem e tratamento de gengivas inflamadas ou com sangramento.",
-      descricao: "Tratamento periodontal realizado nas turmas práticas de Periodontia, com remoção de placa e tártaro, orientação de higiene e acompanhamento.",
-      beneficios: ["Gengivas saudáveis", "Prevenção da perda dentária", "Hálito mais fresco"],
-      incluso: ["Profilaxia", "Raspagem supra e subgengival (quando indicada)", "Orientação de higiene"],
-      prazo: "1 a 4 sessões",
-      publico: "Pacientes com sangramento, tártaro ou inflamação gengival",
-      especialidade: "Periodontia",
-      tipoPreco: "sessao",
-      preco: 60,
-      agendaUrl: "",
-      etapas: ["Triagem", "Avaliação periodontal", "Sessões de tratamento", "Manutenção"]
-    },
-    {
-      id: "restauracoes-esteticas",
-      demo: true,
-      nome: "Restaurações e Estética Dental",
-      categoria: "Dentística",
-      icone: "smile",
-      resumo: "Tratamento de cáries, troca de restaurações e procedimentos estéticos como clareamento e facetas.",
-      descricao: "Atendimento nas turmas de Dentística para restaurar dentes com cárie ou fraturas e melhorar a estética do sorriso, conforme indicação clínica.",
-      beneficios: ["Dentes restaurados", "Sorriso mais harmônico", "Materiais de qualidade"],
-      incluso: ["Restaurações em resina", "Substituição de restaurações antigas", "Clareamento (quando indicado)"],
-      prazo: "Conforme o caso",
-      publico: "Pacientes com cáries, restaurações antigas ou desejo estético",
-      especialidade: "Dentística",
-      tipoPreco: "inicial",
-      preco: 80,
-      agendaUrl: "",
-      etapas: ["Triagem", "Planejamento", "Sessões clínicas", "Revisão"]
-    },
-    {
-      id: "tratamento-canal",
-      demo: true,
-      nome: "Tratamento de Canal",
-      categoria: "Endodontia",
-      icone: "shield-check",
-      resumo: "Tratamento endodôntico para dentes com dor, infecção ou lesões profundas.",
-      descricao: "Atendimento nas turmas de Endodontia, com diagnóstico por imagem e tratamento do canal para preservar o dente natural.",
-      beneficios: ["Alívio da dor", "Preservação do dente natural", "Tecnologia de apoio"],
-      incluso: ["Radiografias do dente", "Tratamento endodôntico", "Acompanhamento"],
-      prazo: "1 a 3 sessões",
-      publico: "Pacientes com indicação de tratamento de canal",
-      especialidade: "Endodontia",
-      tipoPreco: "inicial",
-      preco: 250,
-      agendaUrl: "",
-      etapas: ["Triagem", "Diagnóstico por imagem", "Tratamento", "Restauração final"]
-    },
-    {
-      id: "implantes-dentarios",
-      demo: true,
-      nome: "Implantes Dentários",
-      categoria: "Implantodontia",
-      icone: "stethoscope",
-      resumo: "Reposição de dentes perdidos com implantes, realizada nas turmas de Implantodontia.",
-      descricao: "Pacientes selecionados na triagem podem ser atendidos nas turmas de Implantodontia e Cirurgia Guiada, com planejamento, cirurgia e acompanhamento supervisionados.",
-      beneficios: ["Reposição de dentes perdidos", "Mais conforto para mastigar", "Planejamento digital"],
-      incluso: ["Avaliação e exames", "Planejamento", "Cirurgia de implante", "Acompanhamento pós-operatório"],
-      prazo: "Conforme calendário do curso",
-      publico: "Adultos com perda dentária e condições de saúde compatíveis",
-      especialidade: "Implantodontia",
-      tipoPreco: "orcamento",
-      preco: null,
-      agendaUrl: "",
-      etapas: ["Triagem", "Exames e tomografia", "Planejamento", "Cirurgia e acompanhamento"]
-    },
-    {
-      id: "aparelho-ortodontico",
-      demo: true,
-      nome: "Aparelho Ortodôntico",
-      categoria: "Ortodontia",
-      icone: "smile",
-      resumo: "Correção do alinhamento dos dentes e da mordida, com acompanhamento mensal.",
-      descricao: "Tratamento ortodôntico nas turmas de Ortodontia, com documentação, instalação do aparelho e manutenções periódicas.",
-      beneficios: ["Dentes alinhados", "Mordida corrigida", "Acompanhamento contínuo"],
-      incluso: ["Documentação ortodôntica", "Instalação do aparelho", "Manutenções mensais"],
-      prazo: "Tratamento de longa duração",
-      publico: "Adolescentes e adultos",
-      especialidade: "Ortodontia",
-      tipoPreco: "sessao",
-      preco: 90,
-      agendaUrl: "",
-      etapas: ["Triagem", "Documentação", "Instalação", "Manutenções"]
-    },
-    {
-      id: "harmonizacao-orofacial-pacientes",
-      demo: true,
-      nome: "Harmonização Orofacial",
-      categoria: "Harmonização Orofacial",
-      icone: "sparkles",
-      resumo: "Procedimentos como toxina botulínica e preenchimento, realizados nas imersões de HOF.",
-      descricao: "Pacientes avaliados na triagem podem participar das turmas práticas de Harmonização Orofacial, com análise facial e procedimentos supervisionados.",
-      beneficios: ["Avaliação facial individual", "Procedimentos supervisionados", "Profissionais em especialização"],
-      incluso: ["Análise facial", "Procedimento indicado", "Retorno de avaliação"],
-      prazo: "Datas das imersões",
-      publico: "Adultos com indicação para os procedimentos",
-      especialidade: "Harmonização Orofacial",
-      tipoPreco: "inicial",
-      preco: 300,
-      agendaUrl: "",
-      etapas: ["Triagem", "Análise facial", "Procedimento na imersão", "Retorno"]
-    },
-    {
-      id: "odontopediatria",
-      demo: true,
-      nome: "Odontopediatria",
-      categoria: "Odontopediatria",
-      icone: "users",
-      resumo: "Atendimento odontológico para crianças, com prevenção e tratamento em ambiente acolhedor.",
-      descricao: "Atendimento infantil nas turmas de Odontopediatria, com foco em prevenção, orientação aos pais e tratamento de cáries.",
-      beneficios: ["Atendimento adaptado às crianças", "Prevenção desde cedo", "Orientação para a família"],
-      incluso: ["Avaliação", "Aplicação de flúor", "Tratamento de cáries"],
-      prazo: "Conforme o caso",
-      publico: "Crianças acompanhadas pelos responsáveis",
-      especialidade: "Odontopediatria",
-      tipoPreco: "sessao",
-      preco: 50,
-      agendaUrl: "",
-      etapas: ["Triagem", "Avaliação", "Tratamento", "Retornos preventivos"]
-    }
-  ];
-
-  /* ------------------------------------------------------------------
-     Espaços / salas — DEMONSTRATIVOS
-     Capacidade, metragem, recursos e valores precisam ser confirmados.
-     ------------------------------------------------------------------ */
-  const salas = [
-    {
-      id: "laboratorio-itc",
-      demo: true,
-      nome: "Laboratório ITC",
-      tipo: "Laboratório de treinamento",
-      icone: "microscope",
-      resumo: "Ambiente especializado com mesas em aço inox, focos de iluminação e monitores para treinamentos práticos.",
-      descricao:
-        "O laboratório do ITC é o ambiente de treinamento prático da unidade. A fotografia mostra mesas em aço inox, focos de iluminação articulados e monitores distribuídos pelo espaço. A utilização por terceiros depende de validação técnica e das normas do laboratório.",
-      capacidade: 30,
-      metragem: null,
-      equipamentos: ["Mesas em aço inox", "Focos de iluminação articulados", "Monitores", "Cadeiras"],
-      infraestrutura: ["Ar-condicionado", "Wi-Fi", "Apoio técnico"],
-      modalidade: ["Período (manhã/tarde)", "Diária"],
-      precos: [
-        { rotulo: "Período (4h)", valor: null },
-        { rotulo: "Diária (8h)", valor: null }
-      ],
-      precoHora: null,
-      precoNota: "Sob consulta",
-      fotos: [IMG.laboratorio],
-      destaque: true
-    },
-    {
-      id: "clinica-escola",
-      demo: true,
-      nome: "Clínica IOA",
-      tipo: "Clínica para cursos práticos",
-      icone: "stethoscope",
-      resumo: "Clínica ampla com cadeiras odontológicas e divisórias, preparada para cursos com prática supervisionada.",
-      descricao:
-        "Ambiente clínico amplo com cadeiras odontológicas organizadas em boxes, monitores e iluminação ambiente. Indicado para cursos e treinamentos com atividade clínica, mediante validação da coordenação.",
-      capacidade: 20,
-      metragem: null,
-      equipamentos: ["Cadeiras odontológicas", "Monitores", "Divisórias entre boxes"],
-      infraestrutura: ["Ar-condicionado", "Wi-Fi", "Acessibilidade"],
-      modalidade: ["Período (manhã/tarde)", "Diária"],
-      precos: [
-        { rotulo: "Período (4h)", valor: 1800 },
-        { rotulo: "Diária (8h)", valor: 3200 }
-      ],
-      precoHora: 480,
-      precoNota: "",
-      fotos: [IMG.clinica],
-      destaque: true
-    },
-    {
-      id: "sala-aula-teorica",
-      demo: true,
-      nome: "Sala de Aula Teórica",
-      tipo: "Sala de aula",
-      icone: "graduation-cap",
-      resumo: "Sala para aulas, palestras e workshops com recursos de apresentação.",
-      descricao:
-        "Espaço para aulas teóricas, palestras e workshops. Recursos, layout e capacidade devem ser confirmados com a unidade. Fotografias oficiais pendentes.",
-      capacidade: 40,
-      metragem: 60,
-      equipamentos: ["Projetor ou TV", "Mesas e cadeiras", "Quadro branco", "Sistema de som"],
-      infraestrutura: ["Ar-condicionado", "Wi-Fi", "Acessibilidade"],
-      modalidade: ["Por hora", "Período (manhã/tarde)", "Diária"],
-      precos: [
-        { rotulo: "Hora", valor: 150 },
-        { rotulo: "Período (4h)", valor: 520 },
-        { rotulo: "Diária (8h)", valor: 950 }
-      ],
-      precoHora: 150,
-      precoNota: "",
-      fotos: [],
-      destaque: true
-    },
-    {
-      id: "sala-reuniao",
-      demo: true,
-      nome: "Sala de Reunião",
-      tipo: "Sala de reunião",
-      icone: "users",
-      resumo: "Ambiente reservado para reuniões, entrevistas e atendimentos executivos.",
-      descricao:
-        "Sala reservada para reuniões de pequeno porte, entrevistas e apresentações. Recursos de videoconferência a confirmar com a unidade. Fotografias oficiais pendentes.",
-      capacidade: 8,
-      metragem: 20,
-      equipamentos: ["Mesa de reunião", "TV para apresentação", "Videoconferência"],
-      infraestrutura: ["Ar-condicionado", "Wi-Fi"],
-      modalidade: ["Por hora", "Período (manhã/tarde)"],
-      precos: [
-        { rotulo: "Hora", valor: 90 },
-        { rotulo: "Período (4h)", valor: 320 }
-      ],
-      precoHora: 90,
-      precoNota: "",
-      fotos: [],
-      destaque: false
-    },
-    {
-      id: "sala-multiuso",
-      demo: true,
-      nome: "Sala Multiuso",
-      tipo: "Eventos e workshops",
-      icone: "layers",
-      resumo: "Espaço flexível para workshops, eventos corporativos e encontros profissionais.",
-      descricao:
-        "Ambiente com layout flexível para workshops, lançamentos e encontros profissionais. Capacidade e recursos dependem do formato e devem ser confirmados. Fotografias oficiais pendentes.",
-      capacidade: 60,
-      metragem: 90,
-      equipamentos: ["Projetor", "Sistema de som", "Mesas e cadeiras móveis"],
-      infraestrutura: ["Ar-condicionado", "Wi-Fi", "Acessibilidade", "Copa de apoio"],
-      modalidade: ["Período (manhã/tarde)", "Diária"],
-      precos: [
-        { rotulo: "Período (4h)", valor: 780 },
-        { rotulo: "Diária (8h)", valor: 1400 }
-      ],
-      precoHora: 220,
-      precoNota: "",
-      fotos: [],
-      destaque: false
-    }
-  ];
-
-  const finalidadesReserva = [
-    "Curso ou treinamento",
-    "Reunião corporativa",
-    "Workshop ou palestra",
-    "Evento profissional",
-    "Atendimento / entrevistas",
-    "Outra finalidade"
-  ];
-
-  return { config, professores, cursos, servicos, salas, finalidadesReserva, imagens: IMG };
+  return { config, professores, cursos, imagens: IMG };
 })();

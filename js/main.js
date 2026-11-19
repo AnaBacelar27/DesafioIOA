@@ -105,12 +105,10 @@ window.IOA = (function () {
     home: url("index.html"),
     cursos: url("pages/cursos.html"),
     curso: function (id) { return url("pages/curso-detalhes.html?id=" + encodeURIComponent(id)); },
-    servicos: url("pages/servicos.html"),
-    servico: function (id) { return url("pages/servico-detalhes.html?id=" + encodeURIComponent(id)); },
-    espacos: url("pages/espacos.html"),
-    sala: function (id) { return url("pages/sala-detalhes.html?id=" + encodeURIComponent(id)); },
-    sobre: url("pages/sobre.html"),
-    contato: url("pages/contato.html")
+    espaco: url("index.html#espaco"),
+    ensino: url("index.html#ensino"),
+    networking: url("index.html#networking"),
+    contato: url("index.html#contato")
   };
 
   function esc(str) {
@@ -240,11 +238,7 @@ window.IOA = (function () {
   const api = {
     getCursos: function () { return Promise.resolve(clone(DATA.cursos)); },
     getCurso: function (id) { return Promise.resolve(clone(DATA.cursos.find(function (c) { return c.id === id; }) || null)); },
-    getProfessor: function (id) { return Promise.resolve(clone(DATA.professores.find(function (p) { return p.id === id; }) || null)); },
-    getServicos: function () { return Promise.resolve(clone(DATA.servicos)); },
-    getServico: function (id) { return Promise.resolve(clone(DATA.servicos.find(function (s) { return s.id === id; }) || null)); },
-    getSalas: function () { return Promise.resolve(clone(DATA.salas)); },
-    getSala: function (id) { return Promise.resolve(clone(DATA.salas.find(function (s) { return s.id === id; }) || null)); }
+    getProfessor: function (id) { return Promise.resolve(clone(DATA.professores.find(function (p) { return p.id === id; }) || null)); }
   };
 
   /* ---------------------------------------------------------------
@@ -267,6 +261,7 @@ window.IOA = (function () {
     return (
       '<div class="cover' + (pic ? "" : " cover--graphic" + green) + '">' + inner +
       (opts.flags ? '<div class="cover__flags">' + opts.flags + "</div>" : "") +
+      (opts.extra || "") +
       "</div>"
     );
   }
@@ -276,12 +271,38 @@ window.IOA = (function () {
     return '<span class="badge badge--' + cls + '">' + esc(st.key === "open" || st.key === "filling" || st.key === "last" || st.key === "almost" ? "Inscrições abertas" : st.label) + "</span>";
   }
 
+  /* Foto recortada do docente responsável (canto da imagem do curso).
+     Usa `professor.foto` (PNG com fundo transparente); sem foto, exibe uma
+     silhueta ilustrativa. */
+  const SILHOUETTE =
+    '<svg class="prof-cutout__figure" viewBox="0 0 200 300" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Silhueta ilustrativa — foto do docente pendente">' +
+    '<path d="M14 300c0-70 30-104 86-110 56 6 86 40 86 110z" fill="#f5f2eb"/>' +
+    '<path d="M76 192l24 60 24-60c-16-5-32-5-48 0z" fill="#9db7d3"/>' +
+    '<path d="M76 192l24 72M124 192l-24 72" stroke="#d8d1c2" stroke-width="3" fill="none"/>' +
+    '<path d="M88 156h24l3 38H85z" fill="#d6b298"/>' +
+    '<ellipse cx="100" cy="120" rx="30" ry="36" fill="#e3c4a9"/>' +
+    '<path d="M66 128c-6-44 18-56 36-56 28 0 42 20 36 58-3-18-12-30-34-30-20 0-32 12-38 28z" fill="#5b4737"/>' +
+    '<path d="M66 128c-4 26 2 48 10 58l6-46zM138 130c4 26-2 46-10 56l-6-46z" fill="#5b4737"/>' +
+    "</svg>";
+
+  function profCutout(prof, size) {
+    if (!prof) return "";
+    const media = prof.foto
+      ? '<img class="prof-cutout__figure" src="' + img(prof.foto) + '" alt="' + esc(prof.nome) + ', docente responsável" loading="lazy">'
+      : SILHOUETTE;
+    return '<div class="prof-cutout prof-cutout--' + (size || "card") + '" title="' + esc(prof.nome) + ' — docente responsável"><span class="prof-cutout__arc" aria-hidden="true"></span>' + media + "</div>";
+  }
+
+  function professorOf(c) {
+    return DATA.professores.find(function (p) { return p.id === c.professorId; }) || null;
+  }
+
   function courseCard(c) {
     const st = courseStatus(c);
     const flags = statusBadge(st) + demoFlag("Demo", true);
     return (
       '<article class="course-card reveal">' +
-      coverHTML(c, { flags: flags, green: c.categoria === "Anatomia" }) +
+      coverHTML(c, { flags: flags, green: c.categoria === "Anatomia", extra: profCutout(professorOf(c), "card") }) +
       '<div class="course-card__body">' +
       '<span class="tag">' + esc(c.categoria) + "</span>" +
       '<h3 class="course-card__title"><a href="' + routes.curso(c.id) + '">' + esc(c.titulo) + "</a></h3>" +
@@ -295,66 +316,8 @@ window.IOA = (function () {
       '<div class="price"><span class="price__label">Investimento*</span><span class="price__value">' + money(c.preco) + "</span>" +
       (c.parcelas > 1 ? '<span class="price__note">ou ' + c.parcelas + "x de " + money(c.preco / c.parcelas, { cents: true }) + "</span>" : "") +
       "</div>" +
-      '<a class="btn btn--dark btn--sm" href="' + routes.curso(c.id) + '" aria-label="Ver detalhes de ' + esc(c.titulo) + '">Ver detalhes</a>' +
+      '<a class="btn btn--dark btn--sm" href="' + routes.curso(c.id) + '" aria-label="Ver detalhes de ' + esc(c.titulo) + '">Reservar vaga</a>' +
       "</div></div></article>"
-    );
-  }
-
-  function servicePrice(s) {
-    switch (s.tipoPreco) {
-      case "gratuito": return { label: "Triagem", value: "Gratuita", suffix: "" };
-      case "fixo": return { label: "Valor", value: money(s.preco), suffix: "" };
-      case "inicial": return { label: "A partir de", value: money(s.preco), suffix: "" };
-      case "hora": return { label: "Valor por hora", value: money(s.preco), suffix: "/hora" };
-      case "sessao": return { label: "Valor por sessão", value: money(s.preco), suffix: "/sessão" };
-      default: return { label: "Investimento", value: "Sob orçamento", suffix: "" };
-    }
-  }
-
-  function serviceCard(s, opts) {
-    opts = opts || {};
-    const p = servicePrice(s);
-    return (
-      '<article class="service-card reveal">' +
-      '<div class="service-card__top"><span class="service-card__icon">' + icon(s.icone) + "</span>" + demoFlag("Demo") + "</div>" +
-      '<span class="tag">' + esc(s.categoria) + "</span>" +
-      '<h3 style="margin-top:.5rem">' + esc(s.nome) + "</h3>" +
-      '<p class="service-card__desc">' + esc(s.resumo) + "</p>" +
-      (opts.compact ? "" :
-        '<div class="service-card__list"><p class="label small" style="font-weight:700;margin-bottom:.6rem">O atendimento inclui</p><ul class="check-list">' +
-        s.incluso.map(function (i) { return "<li>" + icon("check") + "<span>" + esc(i) + "</span></li>"; }).join("") +
-        "</ul></div>" +
-        (s.prazo ? '<p class="small muted" style="margin-top:1rem">' + icon("clock") + " Duração: " + esc(s.prazo) + "</p>" : "")) +
-      '<div class="service-card__foot">' +
-      '<div class="service-card__price-row"><div class="price"><span class="price__label">' + p.label + '*</span><span class="price__value">' + p.value + '<small style="font-size:.8rem;font-weight:600;color:var(--graphite-400)">' + p.suffix + "</small></span></div></div>" +
-      '<div class="service-card__actions">' +
-      '<a class="btn btn--outline btn--sm" href="' + routes.servico(s.id) + '">Conhecer</a>' +
-      '<button type="button" class="btn btn--sm" data-schedule="' + esc(s.id) + '">Agendar triagem</button>' +
-      "</div></div></article>"
-    );
-  }
-
-  function roomCard(r) {
-    const preco = r.precoHora != null ? { l: "A partir de", v: money(r.precoHora) + '<small style="font-size:.8rem;color:var(--graphite-400)">/hora</small>' } :
-      r.precos.find(function (p) { return p.valor != null; }) ? { l: "A partir de", v: money(r.precos.find(function (p) { return p.valor != null; }).valor) } : { l: "Valor", v: r.precoNota || "Sob consulta" };
-    const flags = (r.fotos.length ? '<span class="badge badge--plain" style="background:rgba(249,247,243,.92)">Foto oficial</span>' : '<span class="badge badge--plain badge--soon">Foto pendente</span>') + demoFlag("Demo", true);
-    return (
-      '<article class="room-card reveal">' +
-      coverHTML(r, { flags: flags }) +
-      '<div class="room-card__body">' +
-      '<span class="tag">' + esc(r.tipo) + "</span>" +
-      "<h3>" + esc(r.nome) + "</h3>" +
-      '<p class="small muted">' + esc(r.resumo) + "</p>" +
-      '<div class="room-card__specs">' +
-      '<div class="spec"><span class="spec__k">Capacidade</span><span class="spec__v">até ' + r.capacidade + " pessoas</span></div>" +
-      '<div class="spec"><span class="spec__k">Metragem</span><span class="spec__v">' + (r.metragem ? r.metragem + " m²" : "A confirmar") + "</span></div>" +
-      '<div class="spec"><span class="spec__k">Reserva</span><span class="spec__v">' + esc(r.modalidade[0]) + "</span></div>" +
-      '<div class="spec"><span class="spec__k">Recursos</span><span class="spec__v">' + r.equipamentos.length + " itens</span></div>" +
-      "</div>" +
-      '<ul class="chip-list">' + r.equipamentos.slice(0, 3).map(function (e) { return "<li>" + esc(e) + "</li>"; }).join("") + "</ul>" +
-      '<div class="room-card__foot"><div class="price"><span class="price__label">' + preco.l + '*</span><span class="price__value">' + preco.v + "</span></div>" +
-      '<a class="btn btn--dark btn--sm" href="' + routes.sala(r.id) + '">Conhecer sala</a></div>' +
-      "</div></article>"
     );
   }
 
@@ -363,11 +326,10 @@ window.IOA = (function () {
      --------------------------------------------------------------- */
   const NAV = [
     { key: "home", label: "Início", href: routes.home },
-    { key: "cursos", label: "Cursos", href: routes.cursos },
-    { key: "servicos", label: "Serviços", href: routes.servicos },
-    { key: "espacos", label: "Nossos espaços", href: routes.espacos },
-    { key: "sobre", label: "Sobre", href: routes.sobre },
-    { key: "contato", label: "Contato", href: routes.contato }
+    { key: "ensino", label: "Ensino", href: routes.ensino },
+    { key: "espaco", label: "O espaço", href: routes.espaco },
+    { key: "networking", label: "Networking", href: routes.networking },
+    { key: "cursos", label: "Cursos", href: routes.cursos }
   ];
 
   function renderHeader() {
@@ -376,7 +338,7 @@ window.IOA = (function () {
     const section = body.dataset.section || PAGE;
     mount.outerHTML =
       '<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>' +
-      '<div class="demo-banner" role="note"><strong>Protótipo de demonstração.</strong> Preços, vagas, docentes, serviços e recursos das salas são fictícios até validação da unidade.</div>' +
+      '<div class="demo-banner" role="note"><strong>Protótipo de demonstração.</strong> Cursos, preços, vagas e docentes são fictícios até validação da unidade.</div>' +
       '<header class="site-header" id="topo">' +
       '<div class="container site-header__inner">' +
       '<a class="brand" href="' + routes.home + '" aria-label="IOA | ITC São Luís — página inicial">' +
@@ -387,7 +349,7 @@ window.IOA = (function () {
         return '<li><a class="nav__link" href="' + n.href + '"' + (n.key === section ? ' aria-current="page"' : "") + ">" + n.label + "</a></li>";
       }).join("") +
       "</ul>" +
-      '<a class="btn btn--sm nav__cta" href="' + routes.cursos + '">Conheça os cursos</a>' +
+      '<a class="btn btn--sm nav__cta" href="' + routes.cursos + '">Reservar vaga</a>' +
       '<div class="nav__mobile-extra">' +
       '<a href="' + DATA.config.unidade.telefoneHref + '">' + icon("phone") + DATA.config.unidade.telefone + "</a>" +
       '<a href="' + DATA.config.unidade.whatsapp + '" target="_blank" rel="noopener">' + icon("message-circle") + "WhatsApp da unidade</a>" +
@@ -406,7 +368,7 @@ window.IOA = (function () {
       '<div class="container footer__top">' +
       '<div class="footer__brand">' +
       '<img src="' + url("assets/logos/ioa-itc-white.png") + '" alt="IOA | ITC São Luís" width="230" height="71" loading="lazy">' +
-      "<p>Unidade da Rede IOA em São Luís, reunindo o Instituto Orofacial das Américas e o Instituto de Treinamento em Cadáveres: cursos, serviços e infraestrutura para o desenvolvimento profissional.</p>" +
+      "<p>Unidade da Rede IOA em São Luís, reunindo o Instituto Orofacial das Américas e o Instituto de Treinamento em Cadáveres: ensino odontológico de excelência em um espaço premium para aprender, praticar e se conectar.</p>" +
       '<div class="socials">' +
       u.redes.map(function (r) {
         return '<a href="' + r.url + '" target="_blank" rel="noopener" aria-label="' + r.nome + ' da Rede IOA">' + icon(r.icone) + "</a>";
@@ -415,10 +377,8 @@ window.IOA = (function () {
       '<div><p class="footer__title">Navegação</p><ul class="footer__links">' +
       NAV.map(function (n) { return '<li><a href="' + n.href + '">' + n.label + "</a></li>"; }).join("") +
       "</ul></div>" +
-      '<div><p class="footer__title">Frentes</p><ul class="footer__links">' +
-      '<li><a href="' + routes.cursos + '">IOA Cursos</a></li>' +
-      '<li><a href="' + routes.servicos + '">Seja um paciente</a></li>' +
-      '<li><a href="' + routes.espacos + '">IOA Espaços</a></li>' +
+      '<div><p class="footer__title">Especialidades</p><ul class="footer__links">' +
+      DATA.config.categorias.slice(0, 5).map(function (c) { return '<li><a href="' + routes.cursos + "?categoria=" + encodeURIComponent(c) + '">' + c + "</a></li>"; }).join("") +
       '<li><a href="' + u.siteRede + '" target="_blank" rel="noopener">Rede IOA ' + icon("external-link") + "</a></li>" +
       "</ul></div>" +
       '<div><p class="footer__title">Contato</p><address class="footer__contact">' +
@@ -703,12 +663,11 @@ window.IOA = (function () {
         refresh(coursesEl);
       });
     }
-    const servEl = document.getElementById("home-servicos");
-    if (servEl) {
-      api.getServicos().then(function (list) {
-        servEl.innerHTML = list.slice(0, 3).map(function (s) { return serviceCard(s, { compact: true }); }).join("");
-        refresh(servEl);
-      });
+    const esp = document.getElementById("home-especialidades");
+    if (esp) {
+      esp.innerHTML = DATA.config.categorias.map(function (c) {
+        return '<li><a href="' + routes.cursos + "?categoria=" + encodeURIComponent(c) + '">' + esc(c) + "</a></li>";
+      }).join("");
     }
     const gal = document.getElementById("home-galeria");
     if (gal) {
@@ -730,14 +689,6 @@ window.IOA = (function () {
     initHeaderBehavior();
     if (PAGE === "home") initHome();
     refresh(document);
-    // Delegação global: botões "Agendar triagem"
-    document.addEventListener("click", function (e) {
-      const b = e.target.closest("[data-schedule]");
-      if (b && window.IOA_SERVICOS) {
-        e.preventDefault();
-        window.IOA_SERVICOS.openSchedule(b.dataset.schedule);
-      }
-    });
   }
 
   const pub = {
@@ -762,9 +713,8 @@ window.IOA = (function () {
     demoFlag: demoFlag,
     coverHTML: coverHTML,
     courseCard: courseCard,
-    serviceCard: serviceCard,
-    servicePrice: servicePrice,
-    roomCard: roomCard,
+    profCutout: profCutout,
+    professorOf: professorOf,
     api: api,
     modal: modal,
     lightbox: lightbox,

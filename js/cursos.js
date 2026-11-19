@@ -265,7 +265,9 @@
       "<li>" + icon("clock") + c.cargaHoraria + " horas</li>" +
       "</ul></div>" +
       '<div class="course-hero__media">' + I.coverHTML(c, { green: c.categoria === "Anatomia" }) +
-      (pic ? '<span class="course-hero__credit">Fotografia oficial da unidade</span>' : '<span class="course-hero__credit">Capa ilustrativa — fotografia pendente</span>') +
+      I.profCutout(prof, "hero") +
+      '<span class="course-hero__credit">' + (pic ? "Fotografia oficial da unidade" : "Capa ilustrativa — fotografia pendente") +
+      (prof ? '<span class="course-hero__prof">Docente responsável: <strong>' + esc(prof.nome) + "</strong>" + (prof.demo ? " (perfil fictício)" : "") + "</span>" : "") + "</span>" +
       "</div></div></section>" +
 
       /* B. Informações principais */
@@ -313,12 +315,14 @@
       (prof ?
         '<section class="course-section reveal"><span class="eyebrow">Docente</span><h2 class="h3">Quem conduz o curso</h2>' +
         '<div class="teacher">' +
-        '<div class="teacher__photo" aria-hidden="true"><span>' + esc(prof.iniciais) + "</span></div>" +
+        (prof.foto
+          ? '<div class="teacher__photo teacher__photo--img"><img src="' + I.img(prof.foto) + '" alt="' + esc(prof.nome) + '"></div>'
+          : '<div class="teacher__photo" aria-hidden="true"><span>' + esc(prof.iniciais) + "</span></div>") +
         '<div class="teacher__body">' +
-        '<div class="teacher__head"><div><h3 class="h4">' + esc(prof.nome) + '</h3><p class="small muted">' + esc(prof.titulo) + "</p></div>" + (prof.demo ? I.demoFlag("Perfil fictício") : "") + "</div>" +
+        '<div class="teacher__head"><div><h3 class="h4">' + esc(prof.nome) + '</h3><p class="small muted">' + esc(prof.titulo) + "</p></div>" + (prof.demo ? I.demoFlag("Perfil fictício") : prof.curriculoPendente ? I.demoFlag("Currículo a confirmar") : "") + "</div>" +
         '<dl class="teacher__facts">' +
         "<div><dt>Formação</dt><dd>" + esc(prof.formacao) + "</dd></div>" +
-        "<div><dt>Especializações</dt><dd>" + esc(prof.especializacoes.join(" · ")) + "</dd></div>" +
+        "<div><dt>Especializações</dt><dd>" + esc(prof.especializacoes.length ? prof.especializacoes.join(" · ") : "A confirmar com a unidade") + "</dd></div>" +
         "<div><dt>Experiência</dt><dd>" + esc(prof.experiencia) + "</dd></div>" +
         "</dl>" +
         '<p class="small">' + esc(prof.bio) + "</p>" +

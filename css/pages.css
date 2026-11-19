@@ -344,53 +344,6 @@
   align-items: center;
 }
 
-.contact-cards {
-  display: grid;
-  gap: var(--space-3);
-}
-
-.contact-card {
-  display: grid;
-  grid-template-columns: 44px 1fr auto;
-  gap: var(--space-4);
-  align-items: center;
-  padding: var(--space-4) var(--space-5);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--white);
-  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-
-.contact-card:hover {
-  border-color: var(--gold);
-  box-shadow: var(--shadow);
-}
-
-.contact-card .ci-lead {
-  width: 44px;
-  height: 44px;
-  padding: 11px;
-  border-radius: 50%;
-  background: var(--graphite);
-  color: var(--gold-light);
-}
-
-.contact-card .ci-trail {
-  width: 18px;
-  height: 18px;
-  color: var(--graphite-300);
-}
-
-.contact-card strong {
-  display: block;
-  font-size: var(--fs-sm);
-}
-
-.contact-card span {
-  font-size: var(--fs-sm);
-  color: var(--graphite-500);
-}
-
 /* ==========================================================================
    CATÁLOGO DE CURSOS
    ========================================================================== */
@@ -1183,195 +1136,8 @@ code {
 }
 
 /* ==========================================================================
-   SERVIÇOS
+   ESPECIALIDADES
    ========================================================================== */
-.steps-band {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-5);
-  counter-reset: s;
-  list-style: none;
-}
-
-.steps-band li {
-  position: relative;
-  padding-top: var(--space-6);
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.steps-band li::before {
-  counter-increment: s;
-  content: "0" counter(s);
-  position: absolute;
-  top: -0.85rem;
-  left: 0;
-  padding-right: var(--space-3);
-  background: var(--graphite);
-  color: var(--gold-light);
-  font-weight: 700;
-  font-size: var(--fs-sm);
-  letter-spacing: 0.1em;
-}
-
-.steps-band h3 {
-  font-size: var(--fs-md);
-  margin-bottom: var(--space-2);
-}
-
-.steps-band p {
-  font-size: var(--fs-sm);
-  color: rgba(255, 255, 255, 0.66);
-}
-
-.price-types {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  list-style: none;
-  margin-top: var(--space-5);
-}
-
-.price-types li {
-  padding: 0.45rem 0.9rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  background: var(--white);
-}
-
-/* ==========================================================================
-   ESPAÇOS / SALA
-   ========================================================================== */
-.space-intro {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-8);
-  align-items: start;
-}
-
-.space-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
-}
-
-.space-stat {
-  padding: var(--space-5);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--white);
-}
-
-.space-stat svg {
-  width: 24px;
-  height: 24px;
-  color: var(--gold);
-  margin-bottom: var(--space-3);
-}
-
-.space-stat h3 {
-  font-size: var(--fs-base);
-  margin-bottom: var(--space-2);
-}
-
-.space-stat p {
-  font-size: var(--fs-sm);
-  color: var(--graphite-500);
-}
-
-.room-hero {
-  padding-block: var(--space-5) var(--space-6);
-  background: var(--ivory);
-  border-bottom: 1px solid var(--line);
-}
-
-.breadcrumb--dark {
-  color: var(--graphite-400);
-  margin-bottom: var(--space-5);
-}
-
-.breadcrumb--dark li + li::before {
-  color: var(--graphite-300);
-}
-
-.breadcrumb--dark [aria-current="page"] {
-  color: var(--graphite);
-}
-
-.breadcrumb--dark a:hover {
-  color: var(--gold);
-}
-
-.room-gallery {
-  position: relative;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: repeat(2, 230px);
-  gap: var(--space-3);
-}
-
-.room-gallery__main {
-  grid-row: span 2;
-}
-
-.room-gallery .gallery__item:only-of-type {
-  grid-column: 1 / -1;
-}
-
-.room-gallery__all {
-  position: absolute;
-  right: var(--space-4);
-  bottom: var(--space-4);
-  z-index: 2;
-}
-
-.room-gallery .cover {
-  height: 100%;
-}
-
-/* ==========================================================================
-   SOBRE
-   ========================================================================== */
-.about-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-8);
-  align-items: center;
-}
-
-.about-split img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: var(--radius);
-}
-
-.facts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-5);
-}
-
-.fact {
-  padding: var(--space-6);
-  border: 1px solid var(--line-dark);
-  border-radius: var(--radius);
-}
-
-.fact strong {
-  display: block;
-  font-size: var(--fs-lg);
-  font-weight: 600;
-  color: var(--gold-light);
-  margin-bottom: var(--space-2);
-}
-
-.fact p {
-  font-size: var(--fs-sm);
-  color: rgba(255, 255, 255, 0.7);
-}
-
 .regions {
   display: flex;
   flex-wrap: wrap;
@@ -1388,116 +1154,58 @@ code {
   font-weight: 600;
 }
 
-.pending {
-  padding: var(--space-5);
-  border: 1px dashed rgba(167, 131, 46, 0.6);
-  border-radius: var(--radius);
-  background: rgba(249, 247, 243, 0.6);
-  font-size: var(--fs-sm);
-  color: var(--graphite-500);
+
+/* Mídia do curso alinhada à base para a foto do docente encostar no fim da seção */
+.course-hero__media {
+  align-self: end;
 }
 
-.pending strong {
+.course-hero__credit {
+  max-width: 56%;
+}
+
+.course-hero__prof {
   display: block;
-  margin-bottom: var(--space-2);
+  margin-top: 0.35rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
   font-size: var(--fs-xs);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold-dark);
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* ==========================================================================
-   CONTATO
-   ========================================================================== */
-.contact-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: var(--space-8);
-  align-items: start;
+.course-hero__prof strong {
+  color: var(--gold-soft);
+  font-weight: 600;
 }
 
-.contact-info {
-  display: grid;
-  gap: var(--space-5);
-}
-
-.hours {
-  display: grid;
-  gap: var(--space-2);
-  font-size: var(--fs-sm);
-}
-
-.hours div {
-  display: flex;
-  justify-content: space-between;
-  padding-block: var(--space-2);
-  border-bottom: 1px solid var(--line);
-}
-
-.form-card {
-  padding: var(--space-7);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--white);
-  box-shadow: var(--shadow);
-}
-
-.form-card h2 {
-  margin-bottom: var(--space-2);
-}
-
-.form-card > p {
-  margin-bottom: var(--space-6);
-}
-
-.map {
-  position: relative;
-  border-radius: var(--radius);
+.teacher__photo--img {
   overflow: hidden;
-  border: 1px solid var(--line);
   background: var(--ivory);
 }
 
-.map iframe {
-  display: block;
+.teacher__photo--img img {
   width: 100%;
-  height: 440px;
-  border: 0;
-  filter: grayscale(0.4) contrast(1.05);
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
-.channels {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
+.regions a:hover {
+  color: var(--gold);
 }
 
-.channel {
-  display: grid;
-  gap: var(--space-3);
-  padding: var(--space-6) var(--space-5);
-  border: 1px solid var(--line-dark);
-  border-radius: var(--radius);
-  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
-}
-
-.channel:hover {
+.regions li:has(a:hover) {
   border-color: var(--gold);
-  background: rgba(255, 255, 255, 0.03);
 }
 
-.channel svg {
-  width: 26px;
-  height: 26px;
-  color: var(--gold-light);
+#contato .hero__actions {
+  margin-top: 0;
 }
 
-.channel strong {
-  font-size: var(--fs-md);
-  color: var(--white);
-}
-
-.channel span {
-  font-size: var(--fs-sm);
-  color: rgba(255, 255, 255, 0.65);
+/* Âncoras da landing não ficam escondidas sob o header fixo */
+[id="ensino"],
+[id="espaco"],
+[id="networking"],
+[id="contato"] {
+  scroll-margin-top: 80px;
 }
